@@ -47,6 +47,7 @@ OBJECT_FILES := $(foreach src,$(SOURCE_FILENAMES),$(OBJECT_DIRECTORY)/$(src).o)
 INCLUDE_DIRECTORIES := \
 	-I$(SOURCE_DIRECTORY)			\
 	-I$(SOURCE_DIRECTORY)/bsp		\
+	-I$(SOURCE_DIRECTORY)/misc		\
 	-I$(SOURCE_DIRECTORY)/serial	\
 
 # Libraries (Using Explicit Path)
