@@ -34,7 +34,8 @@ SOURCE_DIRECTORY := src
 SOURCE_FILES := \
 	$(C2000WARE_ROOT)/f280049c/device_support/common/source/f28004x_codestartbranch.asm		\
 	$(C2000WARE_ROOT)/f280049c/device_support/headers/source/f28004x_globalvariabledefs.c	\
-	$(SOURCE_DIRECTORY)/main.c	\
+	$(SOURCE_DIRECTORY)/main.c		\
+	$(SOURCE_DIRECTORY)/bsp/bsp.c	\
 
 # Get List of Expected Object Files
 SOURCE_FILENAMES := $(notdir $(basename $(SOURCE_FILES)))
@@ -43,7 +44,8 @@ OBJECT_FILES := $(foreach src,$(SOURCE_FILENAMES),$(OBJECT_DIRECTORY)/$(src).o)
 
 # Local Include Directories 
 INCLUDE_DIRECTORIES := \
-	-I$(SOURCE_DIRECTORY)	\
+	-I$(SOURCE_DIRECTORY)			\
+	-I$(SOURCE_DIRECTORY)/bsp		\
 
 # Libraries (Using Explicit Path)
 LIBRARIES := \
@@ -53,7 +55,7 @@ LIBRARIES := \
 
 # Linkerscripts (Using Explicit Path)
 LINKER_COMMAND_FILES := \
-	-l$(C2000WARE_ROOT)/f280049c/device_support/common/cmd/f28004x_generic_ram_lnk.cmd	\
+	-l$(C2000WARE_ROOT)/f280049c/device_support/common/cmd/28004x_generic_ram_lnk.cmd	\
 	-l$(C2000WARE_ROOT)/f280049c/device_support/headers/cmd/f28004x_headers_nonbios.cmd	\
 
 # ---------------------------------------------------------------------------- #
