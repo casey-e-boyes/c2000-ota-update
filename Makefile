@@ -34,8 +34,9 @@ SOURCE_DIRECTORY := src
 SOURCE_FILES := \
 	$(C2000WARE_ROOT)/f280049c/device_support/common/source/f28004x_codestartbranch.asm		\
 	$(C2000WARE_ROOT)/f280049c/device_support/headers/source/f28004x_globalvariabledefs.c	\
-	$(SOURCE_DIRECTORY)/main.c		\
-	$(SOURCE_DIRECTORY)/bsp/bsp.c	\
+	$(SOURCE_DIRECTORY)/main.c			\
+	$(SOURCE_DIRECTORY)/bsp/bsp.c		\
+	$(SOURCE_DIRECTORY)/serial/serial.c	\
 
 # Get List of Expected Object Files
 SOURCE_FILENAMES := $(notdir $(basename $(SOURCE_FILES)))
@@ -46,6 +47,7 @@ OBJECT_FILES := $(foreach src,$(SOURCE_FILENAMES),$(OBJECT_DIRECTORY)/$(src).o)
 INCLUDE_DIRECTORIES := \
 	-I$(SOURCE_DIRECTORY)			\
 	-I$(SOURCE_DIRECTORY)/bsp		\
+	-I$(SOURCE_DIRECTORY)/serial	\
 
 # Libraries (Using Explicit Path)
 LIBRARIES := \

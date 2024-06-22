@@ -18,6 +18,8 @@
 
 #define GPIO_PIN_LED1               23U
 
+#define SCIA_INT_GROUP INTERRUPT_ACK_GROUP9
+
 
 extern void __bsp_init(void);
 extern void __unlock_gpio_ports(void);
