@@ -53,7 +53,6 @@ INCLUDE_DIRECTORIES := \
 # Libraries (Using Explicit Path)
 LIBRARIES := \
 	-l$(C2000_COMPILER_ROOT)/lib/rts2800_fpu32_eabi.lib					\
-	-l$(C2000WARE_ROOT)/f280049c/driverlib/ccs/Debug/driverlib.lib		\
 	-l$(C2000WARE_ROOT)/f280049c/driverlib/ccs/Debug/driverlib_eabi.lib	\
 	-l$(C2000WARE_ROOT)/libraries/vcu/lib/c28x_vcu0_library_fpu32.lib	\
 

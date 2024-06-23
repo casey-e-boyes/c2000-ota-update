@@ -1,7 +1,8 @@
 #include "bsp/bsp.h"
 #include "misc/crc.h"
 
-const unsigned char* message = "hello world";
+volatile uint16_t message[6] = {0x6865, 0x6C6C, 0x6F20, 0x776F, 0x726C, 0x6400}; // 'hello world'
+uint32_t crc;
 
 int main(void) {
     __bsp_init();
@@ -10,11 +11,7 @@ int main(void) {
     GPIO_setDirectionMode(GPIO_PIN_LED1, GPIO_DIR_MODE_OUT);
     GPIO_setAnalogMode(GPIO_PIN_LED1, GPIO_ANALOG_DISABLED);
 
-
-    
-
-
-
+    crc = get_crc_32((uint16_t*)message, 11);
 
     while (1) {
         DEVICE_DELAY_US(1000000U);
