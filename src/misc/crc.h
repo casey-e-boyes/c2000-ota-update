@@ -10,7 +10,7 @@
 #define CRC_16_POLY_P2 0x1021U     /* CRC-16-CCITT */
 #define CRC_8          0x07U       /* CRC-8-CCITT */
 
-uint32_t get_crc_32(uint16_t* message, const uint16_t length) {
+inline uint32_t get_crc_32(uint16_t* message, const uint16_t length) {
     CRC_reset();
     uint32_t crc_result_raw;
     uint16_t tmp;

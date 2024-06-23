@@ -1,6 +1,5 @@
 #include "bsp/bsp.h"
 #include "serial/serial.h"
-#include "misc/crc.h"
 
 volatile uint16_t message[6] = {0x6865, 0x6C6C, 0x6F20, 0x776F, 0x726C, 0x6400}; // 'hello world'
 uint32_t crc;

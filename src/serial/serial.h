@@ -2,6 +2,8 @@
 #define __INCLUDE_SERIAL_H
 
 #include "../bsp/bsp.h"
+#include "../misc/crc.h"
+#include "../misc/circular_buffer.h"
 
 #define SERIAL_RX_PIN 28U
 #define SERIAL_RX_CFG GPIO_28_SCIA_RX
