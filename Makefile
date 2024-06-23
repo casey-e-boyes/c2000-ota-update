@@ -21,6 +21,8 @@ C2000WARE_INCS := \
 	-I$(C2000WARE_ROOT)/f280049c/device_support/headers/include	\
 	-I$(C2000WARE_ROOT)/f280049c/driverlib						\
 	-I$(C2000WARE_ROOT)/f280049c/driverlib/inc					\
+	-I$(C2000WARE_ROOT)/libraries/vcu/include/common			\
+	-I$(C2000WARE_ROOT)/libraries/vcu/include/vcu0				\
 
 # ---------------------------------------------------------------------------- #
 # Source Files, Include Directories, Libraries, and Linker Commands |--------- #
@@ -53,8 +55,8 @@ INCLUDE_DIRECTORIES := \
 # Libraries (Using Explicit Path)
 LIBRARIES := \
 	-l$(C2000_COMPILER_ROOT)/lib/rts2800_fpu32_eabi.lib					\
-	-l$(C2000WARE_ROOT)/f280049c/driverlib/ccs/Debug/driverlib.lib		\
 	-l$(C2000WARE_ROOT)/f280049c/driverlib/ccs/Debug/driverlib_eabi.lib	\
+	-l$(C2000WARE_ROOT)/libraries/vcu/lib/c28x_vcu0_library_fpu32.lib	\
 
 # Linkerscripts (Using Explicit Path)
 LINKER_COMMAND_FILES := \

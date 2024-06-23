@@ -1,5 +1,9 @@
 #include "bsp/bsp.h"
 #include "serial/serial.h"
+#include "misc/crc.h"
+
+volatile uint16_t message[6] = {0x6865, 0x6C6C, 0x6F20, 0x776F, 0x726C, 0x6400}; // 'hello world'
+uint32_t crc;
 
 int main(void) {
     __bsp_init();
@@ -11,6 +15,7 @@ int main(void) {
     DINT;
     serial_init();
     EINT;
+    crc = get_crc_32((uint16_t*)message, 11);
 
     while (1) {
         DEVICE_DELAY_US(1000000U);
