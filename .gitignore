@@ -1,3 +1,6 @@
 .vscode/
 .ccstudio/
 build/
+test/*.xml*
+test/pytest/venv/
+test/pytest/*cache*

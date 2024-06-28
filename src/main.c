@@ -1,6 +1,7 @@
 #include "bsp/bsp.h"
 #include "serial/serial.h"
 
+volatile char* debug_message;
 
 int main(void) {
     __bsp_init();
@@ -13,6 +14,7 @@ int main(void) {
     serial_init();
     EINT;
 
+    debug_message = "Debug Test Message";
 
     while (1) {
         DEVICE_DELAY_US(1000000U);

@@ -1,7 +1,6 @@
 #include "serial.h"
 
 volatile unsigned char rx_buf[SERIAL_RX_BUF_LEN] = {0};
-volatile unsigned char tx_buf[SERIAL_TX_BUF_LEN] = {0};
 
 volatile linear_buffer serial_rx_buf = {
     .len  = SERIAL_RX_BUF_LEN,
@@ -12,14 +11,6 @@ volatile linear_buffer serial_rx_buf = {
     .crc  = 0
 };
 
-volatile linear_buffer serial_tx_buf = {
-    .len  = SERIAL_RX_BUF_LEN,
-    .sz   = SERIAL_BUF_TYPE_SZ,
-    .buf  = (uint16_t*)tx_buf,
-    .fill = 0,
-    .full = false,
-    .crc  = 0
-};
 
 __interrupt void serial_rx_isr(void);
 // __interrupt void serial_tx_isr(void);
@@ -68,6 +59,10 @@ void serial_init(void) {
 __interrupt void serial_rx_isr(void) {
     // while (SCI_getRxFIFOStatus(SERIAL_BASE) != SCI_FIFO_RX0) {
         uint16_t chr = SCI_readCharBlockingFIFO(SERIAL_BASE);
+
+        // Packing the 16bit 'Bytes' requires an alternating high/low writes to the upper and lower 8bits
+        // from a memory POV this needs to be in the write order of: 1, 0, 3, 2, 5, 4 ... as __byte writes
+        // to the lower 8 bits first, which is wrong if loking at the data as usual 8bit bytes
         uint16_t index = (serial_rx_buf.fill % 2) ? serial_rx_buf.fill - 1 : serial_rx_buf.fill + 1;
         serial_rx_buf.fill++;
         __byte((int *)serial_rx_buf.buf, index) = chr;
@@ -79,13 +74,6 @@ __interrupt void serial_rx_isr(void) {
     // }
 
     SCI_clearInterruptStatus(SERIAL_BASE, SCI_INT_RXFF);
-    Interrupt_clearACKGroup(SCIA_INT_GROUP);
-}
-
-__interrupt void serial_tx_isr(void) {
-    SCI_disableInterrupt(SERIAL_BASE, SCI_INT_TXFF);
-    unsigned char* message = "\r\nEnter a character: ";
-    SCI_writeCharArray(SERIAL_BASE, (uint16_t*)message, 21);
     Interrupt_clearACKGroup(SCIA_INT_GROUP);
 }
 
