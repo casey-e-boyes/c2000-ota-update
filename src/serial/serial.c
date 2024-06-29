@@ -47,6 +47,10 @@ void serial_init(void) {
     SCI_enableModule(SERIAL_BASE);
     SCI_performSoftwareReset(SERIAL_BASE);
 
+    /* Auto Baud Lock & Clear RX FIFO */
+    SCI_lockAutobaud(SERIAL_BASE);
+    (void) SCI_readCharBlockingFIFO(SERIAL_BASE);
+
     /* Configure & Enable SCI(UART) Interrupts */
     SCI_setFIFOInterruptLevel(SERIAL_BASE, SCI_FIFO_TX0, SCI_FIFO_RX1);
     SCI_enableInterrupt(SERIAL_BASE, SCI_INT_RXFF); // SCI_INT_TXFF
