@@ -66,7 +66,7 @@ __interrupt void serial_rx_isr(void) {
         uint16_t index = (serial_rx_buf.fill % 2) ? serial_rx_buf.fill - 1 : serial_rx_buf.fill + 1;
         serial_rx_buf.fill++;
         __byte((int *)serial_rx_buf.buf, index) = chr;
-        if (chr == '\r') {
+        if (chr == '!') { // '\r'
             SCI_disableInterrupt(SERIAL_BASE, SCI_INT_RXFF);
             serial_rx_buf.full = true;
             serial_rx_buf.crc = get_crc_32((uint16_t*)serial_rx_buf.buf, serial_rx_buf.fill);

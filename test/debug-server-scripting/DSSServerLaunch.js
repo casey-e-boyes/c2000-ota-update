@@ -18,7 +18,8 @@ var server = new DSSServer(board_configuration, 4444);
 
 var commands = {
 	"getVariableAddress"    :getVariableAddress,
-    "getConnectionStatus"   :getConnectionStatus
+    "getConnectionStatus"   :getConnectionStatus,
+    "setBreakPointByLine"   :setBreakPointByLine
 };
 
 server.addHandlers(commands);
@@ -39,5 +40,22 @@ function getConnectionStatus(session) {
         return {"status":"OK"};
     } else {
         return {"status":"FAIL"};
+    }
+}
+
+function setBreakPointByLine(session, command) {
+    if (session.target.isConnected()) { 
+        try {           
+            var bpID = session.breakpoint.add(command.file, command.line); 
+        } catch (err) {
+            return { "status": "FAIL", "message": "" + err};                
+        }           
+        if (bpID != -1) {
+            return { "status": "OK", "message": "breakpoint ID is " + bpID };
+        } else {
+            return { "status": "FAIL", "message": "breakpoint ID is " + bpID };
+        }
+    } else {
+        return { "status": "FAIL", "message": "Target is not connected", };
     }
 }
